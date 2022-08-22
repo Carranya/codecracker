@@ -61,7 +61,14 @@
         $code3 = $_POST['code3'];
         $code4 = $_POST['code4'];
 
-        echo "<p>$code1 | $code2 | $code3 | $code4</p>";
+        file_put_contents("codes.php", "$code1 | $code2 | $code3 | $code4<br>", FILE_APPEND);
+    
+        //$output = file_get_contents("codes.php");
+        include "codes.php";
+        echo "<br>";
+
+        
+        echo "<p>$output</p>";
     }
 
 
