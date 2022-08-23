@@ -9,14 +9,15 @@
 <?php
     class Game
     {
-        function __construct(private $code = array(0, 0, 0, 0))
+        function __construct(private $randomcode = array(0, 0, 0, 0))
         {
-        for($i=0; $i<4; $i++)
-        {
-            $this->code[$i] .= random_int(1,4);
+            for($i=0; $i<4; $i++)
+            {
+                $this->randomcode[$i] .= random_int(1,4);
+            }
+        return $this->randomcode;
         }
-        return $this->code;
-        }
+
     }
 
     if(isset($_POST{"answer[1]"}))
@@ -27,11 +28,11 @@
     {
         $code = new Game();
         print_r($code);
-        echo $code[0] . ", " . $code[1] . ", " . $code[2] . ", " . $code[3] . "<br>";
+        // echo $code[0];
         for($i=0; $i<4; $i++)
         {
-            echo "<select name='answer[$i]>";
-            for($j=0; $j<=4; $j++)
+            echo "<select name='answer[$i]'>";
+            for($j=1; $j<=4; $j++)
             {
                 echo "<option value='$j'>$j</option>";
             }
