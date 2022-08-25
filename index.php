@@ -18,6 +18,7 @@
             {
                 $this->randomcode .= random_int(1,4);
             }
+            return $this->randomcode;
         }
 
         function anzeigen()
@@ -25,35 +26,29 @@
             echo $this->randomcode;
         }
 
+
     }
 
-    if(isset($_POST{"antwort"}))
+    if(isset($_POST{"answer"}))
     {
-        echo "Antwort gesetzt";
-        for($i=0; $i<4; $i++)
-        {
-            $answer[$i] = $_POST['answer[$i]'];
-            echo "Antwort:" . $answer[$i] . "<br>";
-        }
+        echo "Antwort gesetzt<br>";
+        $answer =  $_POST['answer'];
+        echo $answer;
+        echo "<br>";
+        echo "Randomcode<br>";
+        $randomcode = new Game(0, $_POST['randomcode']);
+        $randomcode->anzeigen();
     }
     else
     {
         $randomcode = new Game(0,0);
         $randomcode->randomcode();
         $randomcode->anzeigen();
-
+        $senden = $randomcode->randomcode();
         echo "<form action='index.php' method='post'>";
-        for($i=0; $i<4; $i++)
-        {
-            echo "<select name='antwort'>";
-            for($j=1; $j<=4; $j++)
-            {
-                echo "<option value='$j'>$j</option>";
-            }
-            echo "</select>";
-        }
-        echo "i=$i, j=$j<br>";
-        echo "<input type='submit' value='antwort'></input>";
+        echo "<input name='answer'>";
+        echo "<input type='hidden' name='randomcode' value='$senden'>";
+        echo "<input type='submit' value='antwort'>";
         echo "</form>";
     }
 ?>
