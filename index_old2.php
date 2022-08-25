@@ -9,20 +9,23 @@
 <?php
     class Game
     {
-        function __construct(private $round = 0, private $randomcode){}
+        function __construct(private $round = 0, private $randomcode = array()){}
 
         function randomcode()
         {
-            $this->randomcode = random_int(1,4);
-            for($i=0; $i<3; $i++)
+            for($i=0; $i<4; $i++)
             {
-                $this->randomcode .= random_int(1,4);
+                $this->randomcode[$i] = random_int(1,4);
             }
+            // return $this->randomcode;
         }
 
         function anzeigen()
         {
-            echo $this->randomcode;
+            echo $this->randomcode[0];
+            echo $this->randomcode[1];
+            echo $this->randomcode[2];
+            echo $this->randomcode[3];
         }
 
     }
@@ -38,7 +41,7 @@
     }
     else
     {
-        $randomcode = new Game(0,0);
+        $randomcode = new Game();
         $randomcode->randomcode();
         $randomcode->anzeigen();
 
