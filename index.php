@@ -13,10 +13,10 @@
 
         function generate() // generate new hidden code
         {
-            $this->randomcode = random_int(1,4);
+            $this->randomcode = random_int(0,9);
             for($i=0; $i<3; $i++)
             {
-                $this->randomcode .= random_int(1,4);
+                $this->randomcode .= random_int(0,9);
             }
             return $this->randomcode;
         }
@@ -41,32 +41,72 @@
             return $this->inputcode; 
         }
 
-        function exam()
+        function check()
         {
             for($i=0; $i<4; $i++)
             {
+                $color[$i] = "red";
                 for($j=0; $j<4; $j++)
                 {
                     if($this->inputcode[$i] == $this->randomcode[$j])
                     {
                         if($this->inputcode[$i] == $this->randomcode[$i])
                         {
-                            echo "Volltreffer 1x<br>";
+                            $color[$i] = "green";
                         }
                         else
                         {
-                            echo "Fasttreffer 1x<br>";
+                            if($color[$i] == "green")
+                            {
+                                $color[$i] = "green";
+                            }
+                            else
+                            {
+                                $color[$i] = "blue";
+                            }
                         }
                     }
                         else
                     {
-                        echo "Keine Treffer <br>";
+                        if($color[$i] == "green")
+                        {
+                            $color[$i] = "green";
+                        }
+                        else if($color[$i] == "blue")
+                        {
+                            $color[$i] = "blue";
+                        }
+                        else
+                        {
+                        $color[$i] = "red";
+                        }
                     }
                 }
-                echo "<br>";
             }
             
+            echo "<p> 
+            <span style='color:" . $color[0] . "'><b>" . $this->inputcode[0] . "</b></span>
+            <span style='color:" . $color[1] . "'><b>" . $this->inputcode[1] . "</b></span>
+            <span style='color:" . $color[2] . "'><b>" . $this->inputcode[2] . "</b></span>
+            <span style='color:" . $color[3] . "'><b>" . $this->inputcode[3] . "</b></span>
+            </p>";
+
+            if($this->inputcode == $this->randomcode)
+            {
+                echo "<h1 style='color: green'>You win!</h1>";
+                echo "<p><a href='index.php'>New Game?</a></p>";
+                exit;
+            }
+
+            if($this->round > 15)
+            {
+                echo "<h1 style='color: red'>You lose!</h1>";
+                echo "<p><a href='index.php'>New Game?</a></p>";
+                exit;
+            }
+
         }
+
     }
 
     echo "<form action='index.php' method='post'>";
@@ -75,7 +115,6 @@
     if(isset($_POST['answer1']))
     {
         $game = new Game($_POST['round'], $_POST['randomcode']);
-        //$game = new Game($_POST['round'], 4444);
         $round = $game->round();
         $randomcode = $game->randomcode();
         $inputcode = $game->inputcode($_POST['answer1'], $_POST['answer2'], $_POST['answer3'], $_POST['answer4']);
@@ -89,44 +128,27 @@
 
         echo "<input type='hidden' name='round' value='$round'>";
         echo "<input type='hidden' name='randomcode' value='$randomcode'>";
-
-        echo "<select name='answer1'>";
-        echo "<option value=1>1</option>";
-        echo "<option value=2>2</option>";
-        echo "<option value=3>3</option>";
-        echo "<option value=4>4</option>";
-        echo "</select>";
-
-        echo "<select name='answer2'>";
-        echo "<option value=1>1</option>";
-        echo "<option value=2>2</option>";
-        echo "<option value=3>3</option>";
-        echo "<option value=4>4</option>";
-        echo "</select>";
-
-        echo "<select name='answer3'>";
-        echo "<option value=1>1</option>";
-        echo "<option value=2>2</option>";
-        echo "<option value=3>3</option>";
-        echo "<option value=4>4</option>";
-        echo "</select>";
-
-        echo "<select name='answer4'>";
-        echo "<option value=1>1</option>";
-        echo "<option value=2>2</option>";
-        echo "<option value=3>3</option>";
-        echo "<option value=4>4</option>";
-        echo "</select>";
+        
+        echo "<p><b><u>Round: $round / 15</u></b></p>";
+    
+        for($a=1; $a<5; $a++)
+        {
+            echo "<select name='answer$a'>";
+            for($i=0; $i<10; $i++)
+            {
+                echo "<option value=$i>$i</option>";
+            }
+            echo "</select>";
+        }
 
         echo "<input type='submit' value='send'>";
-        echo "</form>";
 
-        echo "Input: $inputcode<br>";
-        echo "Random: $randomcode<br>";
-        echo "<br>";
-        $game->exam();
+        if(isset($_POST['answer1']))
+        {
+            $game->check();
+        }
     
-
+        echo "</form>";
     
 
 
