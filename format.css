@@ -1,0 +1,27 @@
+body
+{
+    font-family: Verdana;
+    text-align: center;
+    background-color: #e3e3e3;
+}
+
+#green
+{
+    color: green;
+}
+
+#blue
+{
+    color: blue;
+}
+
+#red
+{
+    color: red;
+}
+
+.foot
+{
+    font-size: 0.8em;
+}
+

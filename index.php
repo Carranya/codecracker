@@ -4,8 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Cracker</title>
+    <link rel='stylesheet' href='format.css'>
 </head>
 <body>
+<div class='head'>
+    <h1>Code Cracker</h1>
+</div>
+
+<div class='main'>
 <?php
     class Game
     {
@@ -149,12 +155,22 @@
         }
     
         echo "</form>";
+
+        echo "<br><br>";
     
-
-
-
-
-
 ?>
+</div>
+<div class='instruction'>
+    <hr>
+    <h2>Instruction</h2>
+    <p id='green'>Green = Number exists and right position</p>
+    <p id='blue'>Blue = Number exists, but wrong position</p>
+    <p id='red'>Red = Number not exists</p>
+</div>
+
+<div class='foot'>
+    <hr>
+    <p>Version 1.0<br>Karin Giang</p>
+</div>
 </body>
 </html>
