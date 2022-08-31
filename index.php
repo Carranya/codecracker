@@ -104,7 +104,7 @@
                 exit;
             }
 
-            if($this->round > 15)
+            if($this->round > 10)
             {
                 echo "<h1 style='color: red'>You lose!</h1>";
                 echo "<p><a href='index.php'>New Game?</a></p>";
@@ -135,7 +135,7 @@
         echo "<input type='hidden' name='round' value='$round'>";
         echo "<input type='hidden' name='randomcode' value='$randomcode'>";
         
-        echo "<p><b><u>Round: $round / 15</u></b></p>";
+        echo "<p><b><u>Round: $round / 10</u></b></p>";
     
         for($a=1; $a<5; $a++)
         {
